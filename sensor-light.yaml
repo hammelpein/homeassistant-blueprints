@@ -152,4 +152,4 @@ action:
             data:
               duration: "{{states[hold_entity].state | int }}"
 
-  default: []
+    default: []
