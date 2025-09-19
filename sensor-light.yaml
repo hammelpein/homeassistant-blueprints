@@ -151,4 +151,3 @@ action:
             data_template:
               duration: "{{states[hold_entity].state | int }}"
 
-    default: []
