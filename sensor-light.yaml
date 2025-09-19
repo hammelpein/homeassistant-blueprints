@@ -148,7 +148,7 @@ action:
             target:
               entity_id: "{{ timer_entity }}"
             metadata: {}
-            data:
+            data_template:
               duration: "{{states[hold_entity].state | int }}"
 
     default: []
