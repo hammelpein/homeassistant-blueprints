@@ -95,7 +95,8 @@ action:
             then:
               - action: light.turn_off
                 alias: "Turn Off all the Light Targets"
-                target: light_targets
+                target: 
+                  entity_id: "{{ light_targets }}"
 
                   
           - if:
@@ -105,7 +106,8 @@ action:
             then:
               - action: switch.turn_off
                 alias: "Turn Off all the Switch Targets"
-                target: switch_targets
+                target:
+                  entity_id: "{{ switch_targets }}"
 
       - conditions:
         - condition: trigger
@@ -119,7 +121,8 @@ action:
             then:
               - action: light.turn_on
                 alias: "Turn On all the Light Targetss"
-                target: light_targets
+                target: 
+                  entity_id: "{{ light_targets }}"
 
                   
           - if:
@@ -129,10 +132,11 @@ action:
             then:
               - action: switch.turn_on
                 alias: "Turn On all the Switche Targets"
-                target: switch_targets
+                target:
+                  entity_id: "{{ switch_targets }}"
           - action: timer.stop
             target:
-              entity_id: timer_entity
+              entity_id: "{{ timer_entity }}"
             data:
               duration: "{{states[hold_entity].state | int }}"
 
@@ -144,7 +148,7 @@ action:
           - action: timer.start
             alias: "Start the Timer"
             target:
-              entity_id: timer_entity
+              entity_id: "{{ timer_entity }}"
             data:
               duration: "{{states[hold_entity].state | int }}"
           
