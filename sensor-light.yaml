@@ -151,5 +151,5 @@ action:
               entity_id: "{{ timer_entity }}"
             data:
               duration: "{{states[hold_entity].state | int }}"
-          
+
       default: []
