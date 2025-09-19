@@ -83,8 +83,7 @@ condition: []
 
 action:
   - choose:
-    - alias: "Find the trigger source..."
-      conditions:
+      - conditions:
         - condition: trigger
           id: t_timer_finished
           alias: "Handle Timer Finished Trigger"
@@ -108,6 +107,7 @@ action:
                   service: switch.turn_off
                   target: switch_targets
 
+      - conditions:
         - condition: trigger
           id: t_presence_on
           alias: "Handle Presence On Trigger"
@@ -136,6 +136,7 @@ action:
               data:
                 duration: "{{states[hold_entity].state | int }}"
 
+      - conditions:
         - condition: trigger
           id: t_presence_off
           alias: "Handle Presence Off Trigger"
