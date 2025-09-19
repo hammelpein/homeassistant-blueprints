@@ -72,7 +72,6 @@ triggers:
     entity_id: !input 'presence_entity'
     to: 'on'
     id: t_presence_on
-    default: []
       
   - trigger: state
     entity_id: !input 'presence_entity'
