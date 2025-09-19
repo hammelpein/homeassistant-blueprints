@@ -94,7 +94,7 @@ action:
                   condition: template
                   value_template: "{{ has_light_targets}}"
               then:
-                - alias "Turn Off all the Light Targets"
+                - alias: "Turn Off all the Light Targets"
                   service: light.turn_off
                   target: !input 'light_target'
 
@@ -117,7 +117,7 @@ action:
                   condition: template
                   value_template: "{{ has_light_targets}}"
               then:
-                - alias "Turn On all the Light Targetss"
+                - alias: "Turn On all the Light Targetss"
                   service: light.turn_on
                   target: !input 'light_target'
 
