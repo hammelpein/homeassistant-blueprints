@@ -93,8 +93,8 @@ action:
                 alias: "check for light targets to turn off"
                 value_template: "{{ has_light_targets}}"
             then:
-              - alias: "Turn Off all the Light Targets"
-                service: light.turn_off
+              - action: light.turn_off
+                alias: "Turn Off all the Light Targets"
                 target: light_targets
 
                   
@@ -103,8 +103,8 @@ action:
                 condition: template
                 value: has_switch_targets
             then:
-              - alias: "Turn Off all the Switch Targets"
-                service: switch.turn_off
+              - action: switch.turn_off
+                alias: "Turn Off all the Switch Targets"
                 target: switch_targets
 
       - conditions:
@@ -113,12 +113,12 @@ action:
           alias: "Handle Presence On Trigger"
         sequence:
           - if:
-              - alias: "check for light targets to turn on"
-                condition: template
+              - condition: template
+                alias: "check for light targets to turn on"
                 value_template: "{{ has_light_targets}}"
             then:
-              - alias: "Turn On all the Light Targetss"
-                service: light.turn_on
+              - action: light.turn_on
+                alias: "Turn On all the Light Targetss"
                 target: light_targets
 
                   
@@ -127,10 +127,10 @@ action:
                 condition: template
                 value_template: "{{ has_switch_targets}}"
             then:
-              - alias: "Turn On all the Switche Targets"
-                service: switch.turn_on
+              - action: switch.turn_on
+                alias: "Turn On all the Switche Targets"
                 target: switch_targets
-          - service: timer.stop
+          - action: timer.stop
             target:
               entity_id: timer_entity
             data:
@@ -141,7 +141,8 @@ action:
           id: t_presence_off
           alias: "Handle Presence Off Trigger"
         sequence:
-          - service: timer.start
+          - action: timer.start
+            alias: "Start the Timer"
             target:
               entity_id: timer_entity
             data:
