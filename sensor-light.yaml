@@ -7,14 +7,14 @@ blueprint:
   input:
     presence_entity:
       name: "Presence Entity"
-      Description: >
+      description: >
         Still Missing
       selector:
         entity: {}
 
     timer_entity:
       name: Timer Helper
-      Description: >
+      description: >
         Still Missing
       selector:
         entity: 
@@ -22,7 +22,7 @@ blueprint:
 
     light_targets:
       name: "Light Targets"
-      Description: >
+      description: >
         Still Missing
       selector:
         target:
@@ -32,7 +32,7 @@ blueprint:
       
     switch_targets:
       name: "Switch Targets"
-      Description: >
+      description: >
         Still Missing
       selector:
         target:
@@ -42,7 +42,7 @@ blueprint:
 
     hold_entity:
       name: "Hold Entity"
-      Description: >
+      description: >
         Still Missing
       default: []
       selector:
