@@ -100,9 +100,9 @@ action:
 
                   
           - if:
-              - alias: "check for switch targets to turn off"
-                condition: template
-                value: "{{ has_switch_targets }}"
+              - condition: template
+                alias: "check for switch targets to turn off"
+                value_template: "{{ has_switch_targets }}"
             then:
               - action: switch.turn_off
                 alias: "Turn Off all the Switch Targets"
@@ -128,7 +128,7 @@ action:
           - if:
               - alias: "check for Switch targets to turn on"
                 condition: template
-                value_template: "{{ has_switch_targets}}"
+                value_template: "{{ has_switch_targets }}"
             then:
               - action: switch.turn_on
                 alias: "Turn On all the Switche Targets"
