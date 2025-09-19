@@ -96,7 +96,7 @@ action:
               then:
                 - alias: "Turn Off all the Light Targets"
                   service: light.turn_off
-                  target: !input 'light_target'
+                    target: light_targets
 
                   
             - if:
@@ -106,7 +106,7 @@ action:
               then:
                 - alias "Turn Off all the Switche Targets"
                   service: switch.turn_off
-                  target: !input 'switch_target'
+                    target: switch_targets
 
         - condition: trigger
           id: t_presence_on
@@ -119,7 +119,7 @@ action:
               then:
                 - alias: "Turn On all the Light Targetss"
                   service: light.turn_on
-                  target: !input 'light_target'
+                  target: light_targets
 
                   
             - if:
@@ -129,7 +129,7 @@ action:
               then:
                 - alias "Turn On all the Switche Targets"
                   service: switch.turn_on
-                  target: !input 'switch_target'
+                  target: switch_targets
             - service: timer.stop
               target:
                 entity_id: timer_entity
