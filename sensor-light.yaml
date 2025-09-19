@@ -1,0 +1,149 @@
+blueprint:
+  name: Sensor Light
+  description: >
+    Still Missing 
+
+  domain: automation
+  input:
+    presence_entity:
+      name: "Presence Entity"
+      Description: >
+        Still Missing
+      selector:
+        entity: {}
+
+    timer_entity:
+      name: Timer Helper
+      Description: >
+        Still Missing
+      selector:
+        entity: 
+          domain: timer
+
+    light_targets:
+      name: "Light Targets"
+      Description: >
+        Still Missing
+      selector:
+        target:
+          entity:
+            domain: light
+      default: []
+      
+    switch_targets:
+      name: "Switch Targets"
+      Description: >
+        Still Missing
+      selector:
+        target:
+          entity:
+            domain: switch
+      default: []
+
+    hold_entity:
+      name: "Hold Entity"
+      Description: >
+        Still Missing
+      default: []
+      selector:
+        entity:
+          domain: input_number
+
+
+mode: parallel
+max_exceeded: silent
+
+variables:
+  presence_entity: !input 'presence_entity'
+  timer_entity: !input 'timer_entity'
+  light_targets: !input 'light_targets'
+  switch_targets: !input 'switch_targets'
+
+  has_light_targets: "{{ light_targets | length > 0}}"
+  has_switch_targets: "{{ switch_targets | length > 0}}"
+  
+triggers:
+  - trigger: state
+    entity_id: !input 'timer_entity'
+    to: idle
+    id: t_timer_finished
+    
+  - trigger: state
+    entity_id: !input 'presence_entity'
+    to: 'on'
+    id: t_presence_on
+    default: []
+      
+  - trigger: state
+    entity_id: !input 'presence_entity'
+    to: 'off'
+    id: t_presence_off
+
+condition: []
+
+action:
+  - choose:
+    - alias: "Find the trigger source..."
+      conditions:
+        - condition: trigger
+          id: t_timer_finished
+          alias: "Handle Timer Finished Trigger"
+          sequence:
+            - if:
+                - alias: "check for light targets to turn off"
+                  condition: template
+                  value_template: "{{ has_light_targets}}"
+              then:
+                - alias "Turn Off all the Light Targets"
+                  service: light.turn_off
+                  target: !input 'light_target'
+
+                  
+            - if:
+                - alias: "check for switch targets to turn off"
+                  condition: template
+                  value_template: "{{ has_switch_targets}}"
+              then:
+                - alias "Turn Off all the Switche Targets"
+                  service: switch.turn_off
+                  target: !input 'switch_target'
+
+        - condition: trigger
+          id: t_presence_on
+          alias: "Handle Presence On Trigger"
+          sequence:
+            - if:
+                - alias: "check for light targets to turn on"
+                  condition: template
+                  value_template: "{{ has_light_targets}}"
+              then:
+                - alias "Turn On all the Light Targetss"
+                  service: light.turn_on
+                  target: !input 'light_target'
+
+                  
+            - if:
+                - alias: "check for Switch targets to turn on"
+                  condition: template
+                  value_template: "{{ has_switch_targets}}"
+              then:
+                - alias "Turn On all the Switche Targets"
+                  service: switch.turn_on
+                  target: !input 'switch_target'
+            - service: timer.stop
+              target:
+                entity_id: timer_entity
+              data:
+                duration: "{{states[hold_entity].state | int }}"
+
+        - condition: trigger
+          id: t_presence_off
+          alias: "Handle Presence Off Trigger"
+          sequence:
+            - service: timer.start
+              target:
+                entity_id: timer_entity
+              data:
+                duration: "{{states[hold_entity].state | int }}"
+          
+          
