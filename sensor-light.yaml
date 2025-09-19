@@ -87,64 +87,64 @@ action:
         - condition: trigger
           id: t_timer_finished
           alias: "Handle Timer Finished Trigger"
-          sequence:
-            - if:
-                - alias: "check for light targets to turn off"
-                  condition: template
-                  value_template: "{{ has_light_targets}}"
-              then:
-                - alias: "Turn Off all the Light Targets"
-                  service: light.turn_off
-                  target: light_targets
+        sequence:
+          - if:
+              - condition: template
+                alias: "check for light targets to turn off"
+                value_template: "{{ has_light_targets}}"
+            then:
+              - alias: "Turn Off all the Light Targets"
+                service: light.turn_off
+                target: light_targets
 
                   
-            - if:
-                - alias: "check for switch targets to turn off"
-                  condition: template
-                  value: has_switch_targets
-              then:
-                - alias: "Turn Off all the Switch Targets"
-                  service: switch.turn_off
-                  target: switch_targets
+          - if:
+              - alias: "check for switch targets to turn off"
+                condition: template
+                value: has_switch_targets
+            then:
+              - alias: "Turn Off all the Switch Targets"
+                service: switch.turn_off
+                target: switch_targets
 
       - conditions:
         - condition: trigger
           id: t_presence_on
           alias: "Handle Presence On Trigger"
-          sequence:
-            - if:
-                - alias: "check for light targets to turn on"
-                  condition: template
-                  value_template: "{{ has_light_targets}}"
-              then:
-                - alias: "Turn On all the Light Targetss"
-                  service: light.turn_on
-                  target: light_targets
+        sequence:
+          - if:
+              - alias: "check for light targets to turn on"
+                condition: template
+                value_template: "{{ has_light_targets}}"
+            then:
+              - alias: "Turn On all the Light Targetss"
+                service: light.turn_on
+                target: light_targets
 
                   
-            - if:
-                - alias: "check for Switch targets to turn on"
-                  condition: template
-                  value_template: "{{ has_switch_targets}}"
-              then:
-                - alias: "Turn On all the Switche Targets"
-                  service: switch.turn_on
-                  target: switch_targets
-            - service: timer.stop
-              target:
-                entity_id: timer_entity
-              data:
-                duration: "{{states[hold_entity].state | int }}"
+          - if:
+              - alias: "check for Switch targets to turn on"
+                condition: template
+                value_template: "{{ has_switch_targets}}"
+            then:
+              - alias: "Turn On all the Switche Targets"
+                service: switch.turn_on
+                target: switch_targets
+          - service: timer.stop
+            target:
+              entity_id: timer_entity
+            data:
+              duration: "{{states[hold_entity].state | int }}"
 
       - conditions:
         - condition: trigger
           id: t_presence_off
           alias: "Handle Presence Off Trigger"
-          sequence:
-            - service: timer.start
-              target:
-                entity_id: timer_entity
-              data:
-                duration: "{{states[hold_entity].state | int }}"
+        sequence:
+          - service: timer.start
+            target:
+              entity_id: timer_entity
+            data:
+              duration: "{{states[hold_entity].state | int }}"
           
           
