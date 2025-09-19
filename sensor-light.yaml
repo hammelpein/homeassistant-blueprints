@@ -102,11 +102,11 @@ action:
             - if:
                 - alias: "check for switch targets to turn off"
                   condition: template
-                  value_template: "{{ has_switch_targets}}"
+                  value: has_switch_targets
               then:
-                - alias: "Turn Off all the Switche Targets"
-                  service: switch.turn_off
-                  target: switch_targets
+                - alias: "Turn Off all the Switch Targets"
+                  service: light.turn_off
+                  target: light_targets
 
         - condition: trigger
           id: t_presence_on
