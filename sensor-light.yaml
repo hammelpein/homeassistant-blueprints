@@ -134,11 +134,9 @@ action:
                 alias: "Turn On all the Switche Targets"
                 target:
                   entity_id: "{{ switch_targets }}"
-          - action: timer.stop
+          - action: timer.pause
             target:
               entity_id: "{{ timer_entity }}"
-            data:
-              duration: "{{states[hold_entity].state | int }}"
 
       - conditions:
         - condition: trigger
@@ -149,6 +147,7 @@ action:
             alias: "Start the Timer"
             target:
               entity_id: "{{ timer_entity }}"
+            metadata: {}
             data:
               duration: "{{states[hold_entity].state | int }}"
 
