@@ -105,8 +105,8 @@ action:
                   value: has_switch_targets
               then:
                 - alias: "Turn Off all the Switch Targets"
-                  service: light.turn_off
-                  target: light_targets
+                  service: switch.turn_off
+                  target: switch_targets
 
         - condition: trigger
           id: t_presence_on
