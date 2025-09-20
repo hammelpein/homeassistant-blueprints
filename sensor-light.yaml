@@ -58,6 +58,7 @@ variables:
   timer_entity: !input 'timer_entity'
   light_targets: !input 'light_targets'
   switch_targets: !input 'switch_targets'
+  hold_entity: !input 'hold_entity'
 
   has_light_targets: "{{ light_targets | length > 0}}"
   has_switch_targets: "{{ switch_targets | length > 0}}"
@@ -144,5 +145,5 @@ action:
               entity_id: "{{ timer_entity }}"
             metadata: {}
             data_template:
-              duration: 300
+	      duration: '{{ states[hold_entity].state | int }}'
 
