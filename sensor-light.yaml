@@ -2,7 +2,7 @@ blueprint:
   name: Sensor Light
   description: >
     Blueprint for Presence Based Lights and Switches
-    Version 0.00.03
+    Version 0.00.04
     The reason for this blueprint is my old one not being able to handle
       * switches
       * radar based presence detection as
@@ -15,6 +15,34 @@ blueprint:
 
   domain: automation
   input:
+    trigger_entity:
+      name: "Trigger - Entity State"
+      icon: mdi:cog-outline
+      collapsed: true
+      input:
+        include_entity_state:
+          name: Use The Entity State Option (Optional)
+          description: >
+            This option adds triggers that activate when the specified entity changes its state.
+          default: []
+          selector:
+            select:
+              multiple: true
+              options:
+                - label: ON State
+                  value: "entity_on"
+                - label: OFF State
+                  value: "entity_off"
+        entity_input:
+          name: Input Entity 
+          description: >
+            Please select an entity with an ON/OFF state.
+          default: []
+          selector:
+            entity:
+
+
+    
     presence_entity:
       name: "Presence Entity"
       description: >
