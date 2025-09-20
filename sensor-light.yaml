@@ -32,7 +32,7 @@ blueprint:
                   value: "sun_pos_on"
                 - label: OFF State
                   value: "sun_pos_off"
-              default: "sun_pos_off"
+            default: "sun_pos_off"
 
 
     presence_entity:
