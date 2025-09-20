@@ -2,17 +2,17 @@ blueprint:
   name: Sensor Light
   description: >
     Blueprint for Presence Based Lights and Switches
-
+    
     The reason for this blueprint is my old one not being able to handle
     * switches
     * radar based presence detection as
       * presence doesnst flap
       * I was lazy
-
+    
     Still Missing:
     * power entity for PIR switches (optional)
     * sun based condition (optional)
-      
+
   domain: automation
   input:
     presence_entity:
