@@ -1,7 +1,7 @@
 blueprint:
   name: Sensor Light
   description: >
-    Blueprint for Presence Based Lights and Switches Version 0.00.04
+    Blueprint for Presence Based Lights and Switches Version 0.00.05
     The reason for this blueprint is my old one not being able to handle
       * switches
       * radar based presence detection as
