@@ -15,7 +15,7 @@ blueprint:
   domain: automation
   input:
     trigger_entity:
-      name: "Trigger - Entity State"
+      name: "Care for the Sun"
       icon: mdi:cog-outline
       collapsed: true
       input:
@@ -32,6 +32,18 @@ blueprint:
                   value: "sun_pos_on"
                 - label: OFF State
                   value: "sun_pos_off"
+        power_offset:
+          name: Power Offset
+          description: >
+            The sun elevation falling refers to the angle between the sun and the horizon when the sun is setting.
+            A negative value indicates that the sun is BELOW the horizon. For example, a setting guide of -1.5 corresponds to dusk
+          default: 5
+          selector:
+            number:
+              min: 0
+              max: 15
+              step: 0.5
+              unit_of_measurement: seconds
 
 
     presence_entity:
