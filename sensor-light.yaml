@@ -55,8 +55,6 @@ blueprint:
               step: 0.5
               unit_of_measurement: minutes
 
-              
-
     presence_entity:
       name: "Presence Entity"
       description: >
