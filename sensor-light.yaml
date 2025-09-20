@@ -94,8 +94,7 @@ action:
             then:
               - action: light.turn_off
                 alias: "Turn Off all the Light Targets"
-                target: 
-                  entity_id: "{{ light_targets }}"
+                target: "{{ light_targets }}"
 
                   
           - if:
@@ -105,8 +104,7 @@ action:
             then:
               - action: switch.turn_off
                 alias: "Turn Off all the Switch Targets"
-                target:
-                  entity_id: "{{ switch_targets }}"
+                target: "{{ switch_targets }}"
 
       - conditions:
         - condition: trigger
@@ -120,8 +118,7 @@ action:
             then:
               - action: light.turn_on
                 alias: "Turn On all the Light Targetss"
-                target: 
-                  entity_id: "{{ light_targets }}"
+                target: "{{ light_targets }}"
 
                   
           - if:
@@ -131,8 +128,7 @@ action:
             then:
               - action: switch.turn_on
                 alias: "Turn On all the Switche Targets"
-                target:
-                  entity_id: "{{ switch_targets }}"
+                target: "{{ switch_targets }}"
           - action: timer.pause
             target:
               entity_id: "{{ timer_entity }}"
