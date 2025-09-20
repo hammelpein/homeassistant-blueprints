@@ -42,7 +42,6 @@ blueprint:
             entity:
 
 
-    
     presence_entity:
       name: "Presence Entity"
       description: >
