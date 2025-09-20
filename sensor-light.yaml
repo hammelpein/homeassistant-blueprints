@@ -144,6 +144,6 @@ action:
             target:
               entity_id: "{{ timer_entity }}"
             metadata: {}
-            data_template:
-	      duration: '{{ states[hold_entity].state | int }}'
+            data:
+              duration: '{{ states[no_motion_timer].state | int }}'
 
