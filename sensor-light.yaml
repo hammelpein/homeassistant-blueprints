@@ -28,9 +28,9 @@ blueprint:
             select:
               multiple: false
               options:
-                - label: ON
+                - label: "ON"
                   value: "sun_pos_on"
-                - label: OFF
+                - label: "OFF"
                   value: "sun_pos_off"
 
         power_entities:
