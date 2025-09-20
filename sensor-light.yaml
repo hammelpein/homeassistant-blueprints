@@ -1,8 +1,18 @@
 blueprint:
   name: Sensor Light
   description: >
-    Still Missing 
+    Blueprint for Presence Based Lights and Switches
 
+    The reason for this blueprint is my old one not being able to handle
+    * switches
+    * radar based presence detection as
+      * presence doesnst flap
+      * I was lazy
+
+    Still Missing:
+    * power entity for PIR switches (optional)
+    * sun based condition (optional)
+      
   domain: automation
   input:
     presence_entity:
@@ -15,7 +25,7 @@ blueprint:
     timer_entity:
       name: Timer Helper
       description: >
-        Still Missing
+        Timer Entity to be Used for Automation
       selector:
         entity: 
           domain: timer
@@ -23,7 +33,7 @@ blueprint:
     light_targets:
       name: "Light Targets"
       description: >
-        Still Missing
+        Light Entities to be Switched when Presence is detected (OPTIONAL)
       selector:
         target:
           entity:
@@ -33,7 +43,7 @@ blueprint:
     switch_targets:
       name: "Switch Targets"
       description: >
-        Still Missing
+        Switch Entities to be Switched when Presence is detected (OPTIONAL)
       selector:
         target:
           entity:
@@ -43,6 +53,7 @@ blueprint:
     hold_entity:
       name: "Hold Entity"
       description: >
+        Numeric Input Entity to be Used for Initialization of the Timer Entity
         Still Missing
       default: []
       selector:
