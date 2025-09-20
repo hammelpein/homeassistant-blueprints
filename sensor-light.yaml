@@ -23,7 +23,7 @@ blueprint:
           name: Use Position of the Sun (Optional)
           description: >
             This option adds triggers and conditions that activate when the specified entity changes its state.
-          default: "sun_pos_off"
+          default: [ "sun_pos_off" ]
           selector:
             select:
               multiple: false
