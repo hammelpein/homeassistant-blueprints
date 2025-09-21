@@ -1,0 +1,109 @@
+blueprint:
+  name: Touch Blueprint
+  description: >
+    Blueprint for Touch Base Light Control
+
+    * supports long press
+    * nuff
+    
+  domain: automation
+
+  input:
+    touch_entities:
+      name: "Binary Inputs to be Used as Touch Inputs"
+      description: >
+        List of Entities that are to switched on to enable the detection
+      selector:
+        target:
+          entity:
+            domain: binary_sensor
+
+    state_entity:
+      name: "Binary Input to be Used as Light - State"
+      description: >
+        List of Entities that are to switched on to enable the detection
+      selector:
+        target:
+          entity:
+            domain: binary_sensor
+
+    mode_entity:
+      name: "Select to be Used as Light - Mode"
+      description: >
+        List of Entities that are to switched on to enable the detection
+      selector:
+        target:
+          entity:
+            domain: binary_sensor
+
+
+    long_press_ms:
+      name: Long Press Duration
+      description: >
+        Duration in milliseconds for switching on the Detection Power
+      default: 500
+      selector:
+        number:
+          min: 250
+          max: 1500
+          step: 100
+          unit_of_measurement: milliseconds
+
+mode: parallel
+max_exceeded: silent
+
+variables:
+  touch_entities: !input touch_entities
+  state_entity: !input state_entity
+  mode_entity: !input mode_entity
+  long_press_ms: !input long_press_ms
+
+
+triggers:
+  - trigger: event
+    event_type: state_changed
+    event_data:
+      entity_id: "{{ touch_entities }}"
+
+conditions:
+  - condition: template
+    value_template: "{{ trigger.event.data.old_state.state == \"on\" }}"
+
+actions:
+  - sequence:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{ (trigger.event.data.new_state.last_changed -
+                  trigger.event.data.old_state.last_changed) >
+                  timedelta(milliseconds = long_press_ms) }}
+            sequence:
+              - action: select.select_option
+                metadata: {}
+                data:
+                  option: auto
+                target:
+                  entity_id: "{{ mode_entity }}"
+        default:
+          - choose:
+              - conditions:
+                  - condition: state
+                    entity_id: "{{ state_entity }}"
+                    state: "on"
+                sequence:
+                  - action: select.select_option
+                    metadata: {}
+                    data:
+                      option: "off"
+                    target:
+                      entity_id: "{{ mode_entity }}"
+            default:
+              - action: select.select_option
+                metadata: {}
+                data:
+                  option: "on"
+                target:
+                  entity_id: "{{ mode_entity }}"
+
+
