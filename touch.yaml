@@ -3,8 +3,8 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-    * supports long press
-    * nuff
+      * supports long press
+      * nuff
     
   domain: automation
 
