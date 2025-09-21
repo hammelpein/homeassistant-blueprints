@@ -22,19 +22,22 @@ blueprint:
       name: "Binary Input to be Used as Light - State"
       description: >
         List of Entities that are to switched on to enable the detection
+
+      multiple: False
       selector:
         target:
           entity:
             domain: binary_sensor
-
+            
     mode_entity:
       name: "Select to be Used as Light - Mode"
       description: >
         List of Entities that are to switched on to enable the detection
+      multiple: False
       selector:
         target:
           entity:
-            domain: binary_sensor
+            domain: select
 
 
     long_press_ms:
