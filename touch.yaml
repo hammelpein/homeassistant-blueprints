@@ -31,7 +31,6 @@ blueprint:
       name: "Select to be Used as Light - Mode"
       description: >
         List of Entities that are to switched on to enable the detection
-      multiple: false
       selector:
         entity:
           domain: select
