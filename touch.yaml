@@ -83,7 +83,7 @@ actions:
                 data:
                   option: auto
                 target:
-                  entity_id: "{{ mode_entity }}"
+                  entity_id: !input mode_entity
         default:
           - choose:
               - conditions:
@@ -96,13 +96,13 @@ actions:
                     data:
                       option: "off"
                     target:
-                      entity_id: "{{ mode_entity }}"
+                      entity_id: !input mode_entity
             default:
               - action: select.select_option
                 metadata: {}
                 data:
                   option: "on"
                 target:
-                  entity_id: "{{ mode_entity }}"
+                  entity_id: !input mode_entity
 
 
