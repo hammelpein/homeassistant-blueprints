@@ -3,6 +3,7 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
+      * Version 0.0.0.1
       * supports long press
       * nuff
     
@@ -14,9 +15,8 @@ blueprint:
       description: >
         List of Entities that are to switched on to enable the detection
       selector:
-        target:
-          entity:
-            domain: binary_sensor
+        entity:
+          domain: binary_sensor
 
     state_entity:
       name: "Binary Input to be Used as Light - State"
