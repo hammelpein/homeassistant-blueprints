@@ -33,7 +33,7 @@ blueprint:
                 - label: "OFF"
                   value: "sun_pos_off"
 
-        power_entities:
+        power_targets:
           name: Power Entities
           description: >
             List of Entities that are to switched on to enable the detection
@@ -110,9 +110,14 @@ variables:
   light_targets: !input 'light_targets'
   switch_targets: !input 'switch_targets'
   hold_entity: !input 'hold_entity'
+  power_offset: !input 'power_offset'
+  power_targets: !input 'power_targets'
 
+  include_entity_state: !input 'include_entity_state'
+  
   has_light_targets: "{{ light_targets | length > 0}}"
   has_switch_targets: "{{ switch_targets | length > 0}}"
+  has_power_targets: "{{ power_targets | length > 0}}"
   
 triggers:
   - trigger: state
@@ -129,6 +134,18 @@ triggers:
     entity_id: !input 'presence_entity'
     to: 'off'
     id: t_presence_off
+
+
+  - trigger: sun
+    event: sunrise
+    offset: "{{ power_offset * -1.0 }}"
+    id: t_sunrise
+
+  - platform: sun
+    event: sunset
+    offset: "{{ power_offset }}"
+    id: t_sunset
+
 
 condition: []
 
@@ -159,9 +176,20 @@ action:
                 target: "{{ switch_targets }}"
 
       - conditions:
-        - condition: trigger
-          id: t_presence_on
-          alias: "Handle Presence On Trigger"
+        - condition: and
+          - conditions:
+              - condition: trigger
+                id: t_presence_on
+                alias: "Handle Presence On Trigger"
+
+                - condition: or
+                  conditions:
+                    - condition: template
+                      value_template: {{ include_entity_state == 'off' }}
+                    - condition: sun
+                      before: sunrise
+                    - condition: sun
+                      after: sunset
         sequence:
           - if:
               - condition: template
@@ -169,7 +197,7 @@ action:
                 value_template: "{{ has_light_targets}}"
             then:
               - action: light.turn_on
-                alias: "Turn On all the Light Targetss"
+                alias: "Turn On all the Light Targets"
                 target: "{{ light_targets }}"
 
                   
@@ -184,17 +212,69 @@ action:
           - action: timer.pause
             target:
               entity_id: "{{ timer_entity }}"
+            data:
+              duration: '{{ states[hold_entity].state | int }}'
 
       - conditions:
-        - condition: trigger
-          id: t_presence_off
-          alias: "Handle Presence Off Trigger"
+        - condition: and
+          - conditions:
+              - condition: trigger
+                id: t_presence_off
+                alias: "Handle Presence Off Trigger"
+              - condition: template
+                value_template: '{{ states[timer_entity] == states[hold_entity].state }}'
+                
         sequence:
           - action: timer.start
             alias: "Start the Timer"
             target:
               entity_id: "{{ timer_entity }}"
             metadata: {}
-            data:
-              duration: '{{ states[hold_entity].state | int }}'
+            data: {}
+
+      - conditions:
+        - condition: and
+          conditions:
+            - condition: trigger
+              id: t_sunset
+              alias: "Handle Sunset Trigger"
+            - condition: template
+              alias: "check for active"
+              value_template: "{{ include_entity_state == 'on' }}"
+            - condition: template
+              alias: "check for Switch targets to turn on"
+              value_template: "{{ has_power_targets }}"
+        sequence:
+          - action: switch.turn_on
+            alias: "Turn On Power Switch(es)"
+            target: "{{ power_targets }}"
+            metadata: {}
+            data: {}
+
+      - conditions:
+        - condition: and
+          conditions:
+            - condition: trigger
+              id: t_sunrise
+              alias: "Handle Sunrise Trigger"
+            - condition: template
+              alias: "check for active"
+              value_template: "{{ include_entity_state == 'on' }}"
+            - condition: template
+              alias: "check for Switch targets to turn on"
+              value_template: "{{ has_power_targets }}"
+        sequence:
+          - action: switch.turn_off
+            alias: "Start the Timer"
+            target: "{{ power_targets }}"
+            metadata: {}
+            data: {}
+
+
+      - condition: or
+        conditions:
+        - condition: sun
+          before: sunrise
+        - condition: sun
+          after: sunset
 
