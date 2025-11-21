@@ -61,14 +61,14 @@ variables:
 
 
 triggers:
-  - triggers: !input touch_entities
-    platform: event
-    event_type: state_changed
-
-#  - trigger: event
+#  - triggers: !input touch_entities
+#    platform: event
 #    event_type: state_changed
-#    event_data:
-#      entities: !input touch_entities
+
+  - trigger: event
+    event_type: state_changed
+    event_data:
+      entities: !input touch_entities
 
 conditions:
   - condition: template
