@@ -3,10 +3,11 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.1
+      * Version 0.0.0.3
       * supports long press
       * nuff
-      + lists of buttons
+      * lists of buttons
+      * fighting triggers
     
   domain: automation
 
