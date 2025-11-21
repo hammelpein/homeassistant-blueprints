@@ -3,11 +3,11 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.3
+      * Version 0.0.0.4
       * supports long press
       * nuff
       * lists of buttons
-      * fighting triggers
+      * moa fighting triggers
     
   domain: automation
 
@@ -69,7 +69,7 @@ triggers:
   - trigger: event
     event_type: state_changed
     event_data:
-      entities: !input touch_entities
+      entity_id: !input touch_entities
 
 conditions:
   - condition: template
