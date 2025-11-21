@@ -6,6 +6,7 @@ blueprint:
       * Version 0.0.0.1
       * supports long press
       * nuff
+      + lists of buttons
     
   domain: automation
 
