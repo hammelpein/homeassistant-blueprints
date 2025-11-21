@@ -15,8 +15,9 @@ blueprint:
       description: >
         List of Entities that are to switched on to enable the detection
       selector:
-        entity:
-          domain: binary_sensor
+        target:
+          entity:
+            domain: binary_sensor
 
     state_entity:
       name: "Binary Input to be Used as Light - State"
@@ -59,10 +60,14 @@ variables:
 
 
 triggers:
-  - trigger: event
+  - triggers: !input touch_entities
+    platform: event
     event_type: state_changed
-    event_data:
-      entity_id: !input touch_entities
+
+#  - trigger: event
+#    event_type: state_changed
+#    event_data:
+#      entities: !input touch_entities
 
 conditions:
   - condition: template
