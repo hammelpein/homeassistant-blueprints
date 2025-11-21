@@ -15,7 +15,7 @@ blueprint:
     touch_entities:
       name: "Binary Inputs to be Used as Touch Inputs"
       description: >
-        List of Entities that are to switched on to enable the detection
+        List of Entities that are to be monitored
       selector:
         target:
           entity:
@@ -70,7 +70,8 @@ triggers:
     event_type: state_changed
     event_data:
       entity_id: !input touch_entities
-
+      to: "off"
+      
 conditions:
   - condition: template
     value_template: "{{ trigger.event.data.old_state.state == \"on\" }}"
