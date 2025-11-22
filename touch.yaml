@@ -1,13 +1,15 @@
 blueprint:
   name: Touch Blueprint
+  author: hammelbein
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.7
-      * supports noting, as dams triggers still not working
+      * Version 0.0.0.8
+      * supports noting, as damn triggers still not working
       * lists of buttons
       * moa fighting triggers
-      * still not working, no errors but no events
+      * still not working, errors but no events
+
 
   domain: automation
 
@@ -69,7 +71,8 @@ triggers:
 
   - trigger: event
     event_type: state_changed
-    entity_id: !input touch_entities
+    event_data:
+      entity_id: !input touch_entities
       
 conditions:
   - condition: template
