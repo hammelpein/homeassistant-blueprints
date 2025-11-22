@@ -3,13 +3,13 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.5
+      * Version 0.0.0.6
       * supports long press
       * nuff
       * lists of buttons
       * moa fighting triggers
       * still not working, no errors but no events
-    
+      * fixed selectors, hopefully...
   domain: automation
 
   input:
@@ -18,9 +18,10 @@ blueprint:
       description: >
         List of Entities that are to be monitored
       selector:
-        target:
-          entity:
-            domain: binary_sensor
+        entity:
+          multiple: true
+          filter:
+            - domain: binary_sensor
 
     state_entity:
       name: "Binary Input to be Used as Light - State"
