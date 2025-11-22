@@ -65,12 +65,9 @@ variables:
 
 
 triggers:
-#  - triggers: !input touch_entities
-#    platform: event
-#    event_type: state_changed
-
   - trigger: event
-    alias: my one and only trigger
+    id: btn_chg
+    alias: 'my one and only trigger'
     event_type: state_changed
     event_data:
       entity_id: !input 'touch_entities'
