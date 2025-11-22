@@ -4,7 +4,7 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.13
+      * Version 0.0.0.14
       * supports noting, as damn triggers still not working
       * lists of buttons
       * moa fighting triggers
