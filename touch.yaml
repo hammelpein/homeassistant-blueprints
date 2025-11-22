@@ -4,7 +4,7 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.8
+      * Version 0.0.0.9
       * supports noting, as damn triggers still not working
       * lists of buttons
       * moa fighting triggers
@@ -70,6 +70,7 @@ triggers:
 #    event_type: state_changed
 
   - trigger: event
+    alias: my one and only trigger
     event_type: state_changed
     event_data:
       entity_id: !input 'touch_entities'
