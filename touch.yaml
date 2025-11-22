@@ -4,7 +4,7 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.12
+      * Version 0.0.0.13
       * supports noting, as damn triggers still not working
       * lists of buttons
       * moa fighting triggers
@@ -63,6 +63,13 @@ variables:
   mode_entity: !input 'mode_entity'
   long_press_ms: !input 'long_press_ms'
   trigger_test: "{{ touch_entities|join('\n- trigger: event\n  event_type: state_changed\n  event_data:\n    entity_id: ')}}"
+  trigger_test2: >
+    {% for e in touch_entities %}
+- trigger: event
+  event_type: state_changed
+  event_data:
+    entity_id: {{e}}
+    {% endfor %}
 
   
 
@@ -76,7 +83,7 @@ triggers:
       
 conditions:
   - condition: template
-    alias: 'Check for desired state transition from {{ trigger_test }}'
+    alias: 'Check for desired state transition from {{ trigger_test2 }}'
     value_template: "{{ trigger.event.data.old_state.state == \"on\" }}"
 
 actions:
