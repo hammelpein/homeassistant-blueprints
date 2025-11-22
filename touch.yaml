@@ -3,13 +3,12 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.6
-      * supports long press
-      * nuff
+      * Version 0.0.0.7
+      * supports noting, as dams triggers still not working
       * lists of buttons
       * moa fighting triggers
       * still not working, no errors but no events
-      * fixed selectors, hopefully...
+
   domain: automation
 
   input:
