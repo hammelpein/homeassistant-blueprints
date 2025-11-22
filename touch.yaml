@@ -72,7 +72,7 @@ triggers:
   - trigger: event
     event_type: state_changed
     event_data:
-      entity_id: !input touch_entities
+      entity_id: !input 'touch_entities'
       
 conditions:
   - condition: template
