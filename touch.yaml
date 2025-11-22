@@ -65,10 +65,7 @@ variables:
   trigger_test: "{{ touch_entities|join('\n- trigger: event\n  event_type: state_changed\n  event_data:\n    entity_id: ')}}"
   trigger_test2: >
     {% for e in touch_entities %}
-- trigger: event
-  event_type: state_changed
-  event_data:
-    entity_id: {{e}}
+      {{ '- trigger: event\n  event_type: state_changed\n  event_data:\n    entity_id: {}'.format(e) }}
     {% endfor %}
 
   
