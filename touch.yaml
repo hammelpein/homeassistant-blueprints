@@ -4,9 +4,9 @@ blueprint:
   description: >
     Blueprint for Touch Base Light Control
 
-      * Version 0.0.0.14
+      * Version 0.0.0.15
       * supports noting, as damn triggers still not working
-      * lists of buttons
+      * no more lists of buttons
       * moa fighting triggers
       * still not working, errors but no events
 
@@ -14,13 +14,13 @@ blueprint:
   domain: automation
 
   input:
-    touch_entities:
+    touch_entity:
       name: "Binary Inputs to be Used as Touch Inputs"
       description: >
-        List of Entities that are to be monitored
+        Touch Entity that are to be monitored
       selector:
         entity:
-          multiple: true
+          multiple: false
           filter:
             - domain: binary_sensor
 
@@ -76,8 +76,7 @@ triggers:
     alias: 'my one and only trigger'
     event_type: state_changed
     event_data:
-      entity_id: !input 'touch_entities'
-  - triggers: {{ trigger_test_2 }}
+      entity_id: !input 'touch_entity'
       
 conditions:
   - condition: template
