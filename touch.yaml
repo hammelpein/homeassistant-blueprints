@@ -62,13 +62,6 @@ variables:
   state_entity: !input 'state_entity'
   mode_entity: !input 'mode_entity'
   long_press_ms: !input 'long_press_ms'
-  trigger_test: "{{ touch_entities|join('\n- trigger: event\n  event_type: state_changed\n  event_data:\n    entity_id: ')}}"
-  trigger_test2: >
-    {% for e in touch_entities %}
-      {{ '- trigger: event\n  event_type: state_changed\n  event_data:\n    entity_id: {}'.format(e) }}
-    {% endfor %}
-
-  
 
 triggers:
   - trigger: event
@@ -80,7 +73,7 @@ triggers:
       
 conditions:
   - condition: template
-    alias: 'Check for desired state transition from {{ trigger_test2 }}'
+    alias: 'Check for desired state transition from trigger'
     value_template: "{{ trigger.event.data.old_state.state == \"on\" }}"
 
 actions:
