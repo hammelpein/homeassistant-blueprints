@@ -58,7 +58,7 @@ mode: parallel
 max_exceeded: silent
 
 variables:
-  touch_entities: !input 'touch_entities'
+  touch_entity: !input 'touch_entity'
   state_entity: !input 'state_entity'
   mode_entity: !input 'mode_entity'
   long_press_ms: !input 'long_press_ms'
